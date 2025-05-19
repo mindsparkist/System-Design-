@@ -106,4 +106,77 @@ We’ll simulate a full interview, and I’ll provide feedback on:
 
 Let me know, and we’ll tailor the session to your needs! 🚀
 
+![Application Architecture Diagram](https://github.com/mindsparkist/System-Design-/blob/System-Design-Neetcode/image.png)
 
+This image provides a **high-level overview of a typical web application architecture**, likely for a scalable cloud-based service. Here’s a breakdown of each component and its role:
+
+---
+
+### **1. Application Architecture (Top-Level)**
+Represents the entire system design, divided into logical sections.
+
+---
+
+### **2. Build & Deploy Code**
+- **Purpose**: Development and deployment pipeline.  
+- **Key Concepts**:  
+  - **CI/CD**: Automated builds, testing, and deployments (e.g., Jenkins, GitHub Actions).  
+  - **Infrastructure as Code (IaC)**: Tools like Terraform or AWS CloudFormation.  
+
+---
+
+### **3. Server (Multiple Instances)**
+- **Purpose**: Hosts the application logic (e.g., APIs, business logic).  
+- **Key Concepts**:  
+  - **Scalability**: Multiple servers handle increased traffic (horizontal scaling).  
+  - **Statelessness**: Servers don’t store user data; sessions are managed externally (e.g., via Redis).  
+
+---
+
+### **4. Load Balancer**
+- **Purpose**: Distributes incoming traffic across servers.  
+- **Key Concepts**:  
+  - **High Availability**: Prevents single-point failures.  
+  - **Algorithms**: Round-robin, least connections, IP hashing.  
+  - **Tools**: AWS ALB/NLB, NGINX, HAProxy.  
+
+---
+
+### **5. Storage**
+- **Purpose**: Persistent data storage.  
+- **Key Concepts**:  
+  - **Databases**: SQL (PostgreSQL) or NoSQL (MongoDB).  
+  - **Blob Storage**: For files (e.g., AWS S3).  
+  - **Caching**: Redis/Memcached for low-latency access.  
+
+---
+
+### **6. Logging, Metrics, Alerts (Observability)**
+- **Purpose**: Monitor system health and debug issues.  
+- **Key Concepts**:  
+  - **Logging**: Centralized logs (e.g., ELK Stack, Splunk).  
+  - **Metrics**: Performance tracking (e.g., Prometheus, Grafana).  
+  - **Alerts**: Notify engineers of anomalies (e.g., PagerDuty).  
+
+---
+
+### **7. "dev" and "user" (Actors)**
+- **dev**: Developers who build/deploy the system.  
+- **user**: End-users interacting with the application.  
+
+---
+
+### **Key Takeaways**
+1. **Scalability**: Multiple servers + load balancer handle traffic spikes.  
+2. **Reliability**: Observability (logging/metrics) ensures quick issue resolution.  
+3. **Separation of Concerns**: Clear division between compute (servers), storage, and operations (CI/CD).  
+
+This is a **simplified** architecture—real-world systems may include:  
+- **CDNs** (for static content).  
+- **Message Queues** (e.g., Kafka for async processing).  
+- **Microservices** (instead of monolithic servers).  
+
+Would you like to dive deeper into any component? For example:  
+- How to choose between SQL vs. NoSQL?  
+- How load balancers handle sticky sessions?  
+- Best practices for CI/CD pipelines?
