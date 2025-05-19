@@ -180,3 +180,76 @@ Would you like to dive deeper into any component? For example:
 - How to choose between SQL vs. NoSQL?  
 - How load balancers handle sticky sessions?  
 - Best practices for CI/CD pipelines?
+
+Here’s a structured breakdown of **system design fundamentals** and what makes a **good system design**, based on your points:
+
+---
+
+### **What is System Design?**
+System design is about architecting solutions to **move, store, and transform data** efficiently while meeting business goals. Key activities include:
+1. **Moving Data**: Communication between services (APIs, message queues, streaming).  
+2. **Storing Data**: Databases (SQL/NoSQL), caches, file systems.  
+3. **Transforming Data**: Processing (batch/real-time), ETL pipelines.  
+
+---
+
+### **Good System Design: Key Principles**  
+
+| Principle           | Definition                                                                 | Example                                                                 |  
+|---------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------|  
+| **Availability**    | System is operational when needed (uptime %).                              | 99.9% availability = ~8.76h downtime/year.                              |  
+| **SLO/SLA**        | **SLO** (Service Level Objective): Internal performance targets.           | "95% of requests <200ms latency."                                       |  
+|                     | **SLA** (Service Level Agreement): Contractual promise to users.           | "99.9% uptime or refund."                                               |  
+| **Reliability**    | System performs correctly under expected conditions.                       | No silent data corruption in a database.                                |  
+| **Fault Tolerance** | Continues operating despite failures (hardware/software).                  | Retries for transient failures; graceful degradation.                   |  
+| **Redundancy**     | Duplicate critical components to eliminate single points of failure (SPOF). | Multi-AZ deployments in AWS.                                            |  
+| **Throughput**     | Requests processed per second (QPS/RPS).                                   | A CDN handling 1M RPS.                                                  |  
+| **Latency**        | Time taken to complete a single operation (e.g., API call).                | <100ms latency for search results.                                      |  
+
+---
+
+### **Trade-offs in Design**  
+- **Consistency vs. Availability**: CAP theorem (e.g., banking systems favor consistency; social media favors availability).  
+- **Latency vs. Throughput**: Optimizing one often impacts the other (e.g., batching improves throughput but increases latency).  
+- **Cost vs. Redundancy**: More redundancy = higher cost.  
+
+---
+
+### **How to Achieve These Principles**  
+1. **Availability**:  
+   - Use load balancers + auto-scaling.  
+   - Deploy across multiple regions (e.g., AWS Global Accelerator).  
+
+2. **Fault Tolerance**:  
+   - Circuit breakers (e.g., Hystrix).  
+   - Idempotent operations (e.g., retry-safe APIs).  
+
+3. **Redundancy**:  
+   - Replicate databases (leader-follower).  
+   - Backup storage (e.g., S3 versioning).  
+
+4. **Latency/Throughput**:  
+   - Caching (Redis).  
+   - Async processing (Kafka).  
+
+---
+
+### **Example: Twitter Design**  
+- **Availability**: Microservices + redundant instances.  
+- **Latency**: Edge caching for timelines.  
+- **Throughput**: Sharded databases for tweets.  
+- **Fault Tolerance**: Degrade gracefully if trends service fails.  
+
+---
+
+### **Interview Tip**  
+When asked "What makes a good design?", structure your answer as:  
+1. **Functional** (features) + **Non-functional** (availability, latency, etc.).  
+2. **Trade-offs** (e.g., "We prioritized low latency over strong consistency for notifications").  
+
+Would you like to dive deeper into any of these areas? For example:  
+- How to calculate system availability?  
+- Real-world examples of SLO violations (e.g., AWS outages)?  
+- Strategies for reducing latency in distributed systems?
+
+
