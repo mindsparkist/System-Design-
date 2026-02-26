@@ -69,3 +69,49 @@ Some databases are designed to be fast during normal times but consistent during
 * **Availability** is "risky" (it might serve old data).
 
 **Would you like to try a real-world scenario now? For example, "If you are designing the 'Like' count for a viral post, would you choose an AP or a CP system?"**
+
+### Scenario: Designing a "Like" Count for a Viral Post
+
+In this scenario, we have a post going viral with millions of people clicking the "Like" button simultaneously. How do we apply **CAP/PACELC** here?
+
+#### **The Choice: AP (Availability + Partition Tolerance)**
+
+For a "Like" count, you almost always choose **AP**.
+
+* **Why Availability?** If the network has a minor hiccup, you don’t want the "Like" button to stop working or show an error message to the user. Users expect to be able to interact with the app at all times.
+* **Why sacrifice Consistency?** If one user sees 10,405 likes and another sees 10,410 for a few seconds, it doesn't break the application. This is called **Eventual Consistency**. Eventually, all nodes will sync up and show the correct total.
+
+---
+
+### PACELC in Action
+
+If we look at this through the **PACELC** lens, we usually categorize this as a **PA/EL** system:
+
+* **P + A:** If there is a **P**artition, we keep the system **A**vailable (let people keep liking).
+* **E + L:** **E**lse (normally), we prioritize **L**atency. We want the "Like" to register instantly on the user's screen without waiting for a slow "Strict Consistency" check across global databases.
+
+---
+
+### When would you choose CP?
+
+You would choose **CP** (Consistency) for the **Banking** part of a system.
+
+* If you are transferring ₹10,000 from your account, the system **must** be consistent.
+* If the database cannot confirm that the money was subtracted from Account A and added to Account B simultaneously due to a network partition, it is better to return an **Error** (Unavailable) than to accidentally "create" money or lose it (Inconsistent).
+
+---
+
+### Knowledge Repository Summary: The "Like" Button vs. The "Bank"
+
+| Feature | The Like Button | The Bank Transfer |
+| --- | --- | --- |
+| **Priority** | Availability (AP) | Consistency (CP) |
+| **PACELC** | PA/EL (Speed & Uptime) | PC/EC (Accuracy above all) |
+| **User Experience** | "Fast but slightly off" | "Slow/Error but accurate" |
+| **Consistency Type** | Eventual Consistency | Strong/Strict Consistency |
+
+---
+
+### What's Next in your Journey?
+
+You've mastered the foundational networking, communication protocols, and database scaling theories. To complete the "Big Picture" of System Design, we should look at **Message Queues** and **Microservices**.
