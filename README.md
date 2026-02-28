@@ -57,3 +57,5 @@ Both solve the "minimal data movement" problem, but they use different logic.
 * **❌ Don't use it when:**
 * Your number of servers is **fixed** and will never change (standard modulo hashing is simpler and faster).
 * You have a very small number of servers (Rendezvous hashing might be easier to implement and more balanced).
+
+* [System Design Networking & Communication Fundamentals](https://www.youtube.com/watch?v=wy6gjZB35q4) - A deep dive into OSI, TCP/IP, and real-time protocols.
